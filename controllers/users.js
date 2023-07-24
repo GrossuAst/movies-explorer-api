@@ -18,7 +18,28 @@ const updateUserInfo = (req, res, next) => {
     .catch((err) => { console.log(err); });
 };
 
+// регистрация пользователя
+// нужно будет добавить хэширование пароля
+const registerUser = (req, res, next) => {
+  const { email, password, name } = req.body;
+  User.create({ email, password, name })
+    .then((newUser) => {
+      res.status(200).send({ data: newUser });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+// авторизация пользователя
+const login = (req, res, next) => {
+  const { email, password } = req.body;
+  // дописать логику авторизации__________________________
+};
+
 module.exports = {
   getInfoAboutUser,
   updateUserInfo,
+  registerUser,
+  login,
 };
