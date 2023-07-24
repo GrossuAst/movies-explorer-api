@@ -54,23 +54,23 @@ const movieSchema = new mongoose.Schema({
     ref: 'user',
   },
   movieId: {
-    // возможна неверная настройка
+    // eslint-disable-next-line max-len
+    // возможна неверная настройка. Разобраться, что значит "id фильма, который содержится в ответе сервиса MoviesExplorer"
     type: Number,
     required: true,
   },
   nameRU: {
     type: String,
     required: true,
-    validate: {
-      // добавить валидацию только на русском
-    },
+    match: /^[А-Яа-яЁё ]+$/,
+    message: 'Это поле может содержать только кириллические символы',
   },
   nameEN: {
     type: String,
     required: true,
-    validate: {
-      // добавить валидацию только на английском
-    },
+    // проверить работу валидации_______
+    match: /^[A-Za-z ]+$/,
+    message: 'Это поле может содержать только латинские символы',
   },
 });
 
