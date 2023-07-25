@@ -1,7 +1,6 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 const mongoose = require('mongoose');
-// eslint-disable-next-line import/no-extraneous-dependencies
 const validator = require('validator');
+const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -31,6 +30,22 @@ userSchema.methods.toJSON = function () {
   const obj = this.toObject();
   delete obj.password;
   return obj;
+};
+
+userSchema.statics.findUserByCredentials = function (email, password) {
+  return this.findOne({ email }).select('+password')
+    .then((user) => {
+      if (!user) {
+        console.log('error');
+      }
+      return bcrypt.compare(password, user.password)
+        .then((matched) => {
+          if (!matched) {
+            console.log('не совпал пароль');
+          }
+          return user;
+        });
+    });
 };
 
 module.exports = mongoose.model('user', userSchema);
