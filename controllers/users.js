@@ -6,14 +6,14 @@ const { NODE_ENV = 'production', JWT_SECRET = 'ddfc736b97c0621a857e150566eb985c'
 
 // нужно будет добавить централизованную обработку ощибок
 
-const getInfoAboutUser = (req, res, next) => {
+const getInfoAboutUser = (req, res) => {
   // нужно будет написать мидлвэру, добавляющая запросу поле user, счс работает через req.params._id
-  User.findById(req.params._id)
+  User.findById(req.user._id)
     .then((user) => res.status(200).send({ data: user }))
     .catch((err) => { console.log(err); });
 };
 
-const updateUserInfo = (req, res, next) => {
+const updateUserInfo = (req, res) => {
   User.findByIdAndUpdate(
     req.user._id,
     { email: req.body.email, name: req.body.name },
@@ -25,7 +25,7 @@ const updateUserInfo = (req, res, next) => {
 
 // регистрация пользователя
 // нужно будет добавить хэширование пароля
-const registerUser = (req, res, next) => {
+const registerUser = (req, res) => {
   const { email, password, name } = req.body;
   return bcrypt.hash(password, 10)
     .then((hash) => {
@@ -40,7 +40,7 @@ const registerUser = (req, res, next) => {
 };
 
 // авторизация пользователя
-const login = (req, res, next) => {
+const login = (req, res) => {
   const { email, password } = req.body;
   // дописать логику авторизации_________________________
   return User.findUserByCredentials(email, password)
