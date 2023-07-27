@@ -34,12 +34,13 @@ const deleteMovie = (req, res, next) => {
       if (!movie) {
         throw new NotFoundError('Такой фильм не сохранен');
       }
-      if (movie.owner._id.toString() !== req.user._id.toString()) {
+      if (movie.owner.toString() !== req.user._id.toString()) {
         throw new ForbiddenError('Вы не можете удалить этот фильм');
       }
-      return movie.deleteOne().then((ok) => {
-        res.status(200).send(ok);
-      });
+      return Movie.deleteOne()
+        .then(() => {
+          res.status(200).send({ message: 'Фильм удален' });
+        });
     })
     .catch(next);
 };

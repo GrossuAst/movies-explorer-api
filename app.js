@@ -13,6 +13,15 @@ const { errors } = require('celebrate');
 // eslint-disable-next-line import/no-extraneous-dependencies
 const cors = require('cors');
 
+// настройка запуска в режиме разработки
+if (!process.env.NODE_ENV) {
+  process.env.NODE_ENV = 'development';
+}
+
+if (!process.env.JWT_SECRET) {
+  process.env.JWT_SECRET = 'dev-secret';
+}
+
 // загрузка переменных окружения
 // eslint-disable-next-line import/no-extraneous-dependencies
 require('dotenv').config();
