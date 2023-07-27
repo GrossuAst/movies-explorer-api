@@ -34,7 +34,7 @@ const deleteMovie = (req, res, next) => {
       if (movie.owner.toString() !== req.user._id.toString()) {
         throw new ForbiddenError('Вы не можете удалить этот фильм');
       }
-      return Movie.deleteOne()
+      return Movie.deleteOne(movie)
         .then(() => {
           res.status(200).send({ message: 'Фильм удален' });
         });
