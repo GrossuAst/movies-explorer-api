@@ -8,8 +8,7 @@ const { errors } = require('celebrate');
 const cors = require('cors');
 
 // окружение
-const { NODE_ENV } = process.env.NODE_ENV;
-const { MONGO_URL } = process.env.MONGO_URL;
+const { NODE_ENV, MONGO_URL } = process.env;
 
 // настройка запуска в режиме разработки
 if (!process.env.NODE_ENV) {
