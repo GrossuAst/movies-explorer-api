@@ -54,9 +54,7 @@ const movieSchema = new mongoose.Schema({
     ref: 'user',
   },
   movieId: {
-    // eslint-disable-next-line max-len
-    // возможна неверная настройка. Разобраться, что значит "id фильма, который содержится в ответе сервиса MoviesExplorer"
-    type: Number,
+    type: mongoose.Schema.Types.ObjectId,
     required: true,
   },
   nameRU: {
