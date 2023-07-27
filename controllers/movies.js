@@ -19,7 +19,7 @@ const createMovie = (req, res, next) => {
     // eslint-disable-next-line max-len
     country, director, duration, year, description, image, trailerLink, nameRU, nameEN, thumbnail, owner: req.user._id, movieId,
   })
-    .then((movie) => res.status(200).send({ data: movie }))
+    .then((movie) => res.status(201).send({ data: movie }))
     .catch(next);
 };
 
