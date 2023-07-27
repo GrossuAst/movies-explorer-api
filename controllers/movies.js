@@ -15,11 +15,14 @@ const createMovie = (req, res, next) => {
     // eslint-disable-next-line max-len
     country, director, duration, year, description, image, trailerLink, thumbnail, movieId, nameRU, nameEN,
   } = req.body;
+  const owner = req.user._id;
   Movie.create({
     // eslint-disable-next-line max-len
-    country, director, duration, year, description, image, trailerLink, nameRU, nameEN, thumbnail, owner: req.user._id, movieId,
+    country, director, duration, year, description, image, trailerLink, movieId, nameRU, nameEN, thumbnail, owner,
   })
-    .then((movie) => res.status(201).send({ data: movie }))
+    .then((movie) => {
+      res.status(201).send({ data: movie });
+    })
     .catch(next);
 };
 
