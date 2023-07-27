@@ -1,16 +1,10 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 const express = require('express');
 
 const app = express();
-// eslint-disable-next-line import/no-extraneous-dependencies
 const mongoose = require('mongoose');
-// eslint-disable-next-line import/no-extraneous-dependencies
 const bodyParser = require('body-parser');
-// eslint-disable-next-line no-unused-vars
 const cookieParser = require('cookie-parser');
-// eslint-disable-next-line import/no-unresolved, import/no-extraneous-dependencies
 const { errors } = require('celebrate');
-// eslint-disable-next-line import/no-extraneous-dependencies
 const cors = require('cors');
 
 // настройка запуска в режиме разработки
@@ -23,7 +17,6 @@ if (!process.env.JWT_SECRET) {
 }
 
 // загрузка переменных окружения
-// eslint-disable-next-line import/no-extraneous-dependencies
 require('dotenv').config();
 
 app.use(cors({

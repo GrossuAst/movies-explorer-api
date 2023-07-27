@@ -12,12 +12,10 @@ const getAllSavedMovies = (req, res, next) => {
 // создание фильма
 const createMovie = (req, res, next) => {
   const {
-    // eslint-disable-next-line max-len
     country, director, duration, year, description, image, trailerLink, thumbnail, movieId, nameRU, nameEN,
   } = req.body;
   const owner = req.user._id;
   Movie.create({
-    // eslint-disable-next-line max-len
     country, director, duration, year, description, image, trailerLink, movieId, nameRU, nameEN, thumbnail, owner,
   })
     .then((movie) => {
@@ -29,7 +27,6 @@ const createMovie = (req, res, next) => {
 // удаление фильма
 const deleteMovie = (req, res, next) => {
   Movie.findById(req.params.movieId)
-    // eslint-disable-next-line consistent-return
     .then((movie) => {
       if (!movie) {
         throw new NotFoundError('Такой фильм не сохранен');

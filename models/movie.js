@@ -1,6 +1,4 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 const mongoose = require('mongoose');
-// eslint-disable-next-line import/no-extraneous-dependencies
 const validator = require('validator');
 
 const movieSchema = new mongoose.Schema({
@@ -66,7 +64,6 @@ const movieSchema = new mongoose.Schema({
   nameEN: {
     type: String,
     required: true,
-    // проверить работу валидации_______
     match: /^[A-Za-z ]+$/,
     message: 'Это поле может содержать только латинские символы',
   },
