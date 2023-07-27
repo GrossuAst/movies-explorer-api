@@ -10,6 +10,17 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 // eslint-disable-next-line import/no-unresolved, import/no-extraneous-dependencies
 const { errors } = require('celebrate');
+// eslint-disable-next-line import/no-extraneous-dependencies
+const cors = require('cors');
+
+// загрузка переменных окружения
+// eslint-disable-next-line import/no-extraneous-dependencies
+require('dotenv').config();
+
+app.use(cors({
+  origin: 'https://grossuast.movie.nomoreparties.sbs',
+  credentials: true,
+}));
 
 // импорт роутов
 const userRouter = require('./routes/users');

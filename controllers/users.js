@@ -5,7 +5,9 @@ const User = require('../models/user');
 const NotFoundError = require('../errors/not-found-error');
 const ConflictError = require('../errors/conflict-error');
 
-const { NODE_ENV = 'production', JWT_SECRET = 'ddfc736b97c0621a857e150566eb985c' } = process.env;
+// const { NODE_ENV, JWT_SECRET } = process.env;
+const { NODE_ENV } = process.env.NODE_ENV;
+const { JWT_SECRET } = process.env.JWT_SECRET;
 
 // нужно будет добавить централизованную обработку ощибок
 

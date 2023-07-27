@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const UnauthorizedError = require('../errors/unauthorized-error');
 
-const { JWT_SECRET = 'ddfc736b97c0621a857e150566eb985c' } = process.env;
+const { JWT_SECRET } = process.env.JWT_SECRET;
 
 // eslint-disable-next-line consistent-return
 module.exports = (req, res, next) => {
