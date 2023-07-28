@@ -28,7 +28,13 @@ const updateUserInfo = (req, res, next) => {
     { new: true, runValidators: true, upsert: false },
   )
     .then((user) => res.status(200).send({ data: user }))
-    .catch(next);
+    .catch((err) => {
+      if (err.code === 11000) {
+        next(new ConflictError('Пользователь с таким email уже зарегестрирован'));
+      } else {
+        next(err);
+      }
+    });
 };
 
 // регистрация пользователя
