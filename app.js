@@ -28,12 +28,7 @@ app.use(cors({
 }));
 
 // импорт роутов
-const userRouter = require('./routes/users');
-const movieRouter = require('./routes/movies');
-const registerRouter = require('./routes/register');
-const loginRouter = require('./routes/login');
-const logoutRouter = require('./routes/logout');
-const nonExistenRoutes = require('./routes/non-existen-routes');
+const routes = require('./routes/index');
 
 const { PORT = 3000 } = process.env;
 
@@ -41,9 +36,6 @@ const { PORT = 3000 } = process.env;
 mongoose.connect(NODE_ENV === 'production' ? MONGO_URL : 'mongodb://127.0.0.1/bitfilmsdb', {
   useNewUrlParser: true,
 });
-
-// мидлвэра авторизации
-const auth = require('./middlewares/auth');
 
 // логгеры
 const { requestLogger, errorLogger } = require('./middlewares/loggers');
@@ -57,13 +49,7 @@ app.use(cookieParser());
 app.use(requestLogger);
 
 // роуты
-app.use(registerRouter);
-app.use(loginRouter);
-app.use(auth);
-app.use(userRouter);
-app.use(movieRouter);
-app.use(logoutRouter);
-app.use(nonExistenRoutes);
+app.use(routes);
 
 // логгер ошибок
 app.use(errorLogger);
