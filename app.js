@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
 const cors = require('cors');
+const rateLimiter = require('./utils/rate-limiter');
 
 // окружение
 const { NODE_ENV, MONGO_URL } = process.env;
@@ -22,10 +23,14 @@ if (!process.env.JWT_SECRET) {
 // загрузка переменных окружения
 require('dotenv').config();
 
+// безопасность
 app.use(cors({
   origin: 'https://grossuast.movie.nomoreparties.sbs',
   credentials: true,
 }));
+
+// ограничение запросов
+app.use(rateLimiter);
 
 // импорт роутов
 const routes = require('./routes/index');
@@ -39,6 +44,7 @@ mongoose.connect(NODE_ENV === 'production' ? MONGO_URL : 'mongodb://127.0.0.1/bi
 
 // логгеры
 const { requestLogger, errorLogger } = require('./middlewares/loggers');
+
 // обработчик ошибок
 const errorsHandler = require('./middlewares/errorsHandler');
 
