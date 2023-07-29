@@ -2,6 +2,8 @@ const Movie = require('../models/movie');
 const NotFoundError = require('../errors/not-found-error');
 const ForbiddenError = require('../errors/forbidden');
 
+const { statusCreated, noContentStatus } = require('../utils/constants');
+
 // возвращает все сохраненные пользователем фильмы
 const getAllSavedMovies = (req, res, next) => {
   Movie.find({ owner: req.user._id })
@@ -19,7 +21,7 @@ const createMovie = (req, res, next) => {
     country, director, duration, year, description, image, trailerLink, movieId, nameRU, nameEN, thumbnail, owner,
   })
     .then((movie) => {
-      res.status(201).send({ data: movie });
+      res.status(statusCreated).send({ data: movie });
     })
     .catch(next);
 };
@@ -36,7 +38,7 @@ const deleteMovie = (req, res, next) => {
       }
       return Movie.deleteOne(movie)
         .then(() => {
-          res.status(200).send({ message: 'Карточка удалена' });
+          res.status(noContentStatus).send({ message: 'Карточка удалена' });
         });
     })
     .catch(next);

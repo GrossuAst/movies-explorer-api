@@ -2,6 +2,8 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 
+const { statusOk, statusCreated } = require('../utils/constants');
+
 const NotFoundError = require('../errors/not-found-error');
 const ConflictError = require('../errors/conflict-error');
 
@@ -15,7 +17,7 @@ const getInfoAboutUser = (req, res, next) => {
       if (!user) {
         throw new NotFoundError('Такого пользователя не существует');
       }
-      return res.status(200).send({ data: user });
+      return res.status(statusOk).send({ data: user });
     })
     .catch(next);
 };
@@ -27,7 +29,7 @@ const updateUserInfo = (req, res, next) => {
     { email: req.body.email, name: req.body.name },
     { new: true, runValidators: true, upsert: false },
   )
-    .then((user) => res.status(200).send({ data: user }))
+    .then((user) => res.status(statusOk).send({ data: user }))
     .catch((err) => {
       if (err.code === 11000) {
         next(new ConflictError('Пользователь с таким email уже зарегестрирован'));
@@ -44,7 +46,7 @@ const registerUser = (req, res, next) => {
     .then((hash) => {
       User.create({ email, password: hash, name })
         .then((newUser) => {
-          res.status(201).send({ data: newUser });
+          res.status(statusCreated).send({ data: newUser });
         })
         .catch((err) => {
           if (err.code === 11000) {
@@ -62,7 +64,7 @@ const login = (req, res, next) => {
   return User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
-      res.status(200).cookie('jwt', token, { maxAge: 3600000 * 24 * 7, httpOnly: true }).send({ message: 'Авторизация успешна' });
+      res.status(statusOk).cookie('jwt', token, { maxAge: 3600000 * 24 * 7, httpOnly: true }).send({ message: 'Авторизация успешна' });
     })
     .catch(next);
 };
