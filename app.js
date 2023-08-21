@@ -25,7 +25,7 @@ require('dotenv').config();
 
 // безопасность
 app.use(cors({
-  origin: 'https://grossuast.movie.nomoreparties.sbs',
+  origin: ['https://grossuast.movie.nomoreparties.sbs', 'http://localhost:3000'],
   credentials: true,
 }));
 
