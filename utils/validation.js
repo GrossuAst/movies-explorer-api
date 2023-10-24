@@ -22,7 +22,7 @@ const createMovieValidation = celebrate({
 // валидация _id удаляемой карточки
 const deleteMovieValidation = celebrate({
   params: Joi.object().keys({
-    movieId: Joi.string().required().length(24).hex(),
+    movieId: Joi.number().required(),
   }),
 });
 

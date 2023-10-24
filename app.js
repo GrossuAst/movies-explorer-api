@@ -35,7 +35,7 @@ app.use(rateLimiter);
 // импорт роутов
 const routes = require('./routes/index');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 4000 } = process.env;
 
 // подключение к бд
 mongoose.connect(NODE_ENV === 'production' ? MONGO_URL : 'mongodb://127.0.0.1/bitfilmsdb', {
