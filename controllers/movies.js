@@ -36,7 +36,7 @@ const deleteMovie = (req, res, next) => {
       if (movie.owner.toString() !== req.user._id.toString()) {
         throw new ForbiddenError('Вы не можете удалить эту карточку');
       }
-      return Movie.deleteOne()
+      return Movie.deleteOne({ movieId: req.params.movieId })
         .then(() => {
           res.status(noContentStatus).send({ message: 'Карточка удалена' });
         });
