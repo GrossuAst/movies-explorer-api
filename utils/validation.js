@@ -14,15 +14,15 @@ const createMovieValidation = celebrate({
     trailerLink: Joi.string().required().pattern(regex),
     thumbnail: Joi.string().required().pattern(regex),
     movieId: Joi.number().required(),
-    nameRU: Joi.string().required().pattern(/^[А-Яа-яЁё ]+$/),
-    nameEN: Joi.string().required().pattern(/^[A-Za-z ]+$/),
+    nameRU: Joi.string().required().pattern(/[\s\S]/),
+    nameEN: Joi.string().required().pattern(/[\s\S]/),
   }),
 });
 
 // валидация _id удаляемой карточки
 const deleteMovieValidation = celebrate({
   params: Joi.object().keys({
-    movieId: Joi.string().required().length(24).hex(),
+    movieId: Joi.number().required(),
   }),
 });
 
