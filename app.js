@@ -25,7 +25,7 @@ require('dotenv').config();
 
 // безопасность
 app.use(cors({
-  origin: ['https://grossuast.movie.nomoreparties.sbs', 'http://localhost:3000'],
+  origin: ['https://grossuast.movie.nomoreparties.sbs', 'http://localhost:3001'],
   credentials: true,
 }));
 
@@ -41,6 +41,9 @@ const { PORT = 3000 } = process.env;
 mongoose.connect(NODE_ENV === 'production' ? MONGO_URL : 'mongodb://127.0.0.1/bitfilmsdb', {
   useNewUrlParser: true,
 });
+
+// mongodb://127.0.0.1/bitfilmsdb
+// mongodb://localhost:27017/mynewdb
 
 // логгеры
 const { requestLogger, errorLogger } = require('./middlewares/loggers');
