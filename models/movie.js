@@ -58,13 +58,13 @@ const movieSchema = new mongoose.Schema({
   nameRU: {
     type: String,
     required: true,
-    match: /^[А-Яа-яЁё ]+$/,
+    match: /[\s\S]/,
     message: 'Это поле может содержать только кириллические символы',
   },
   nameEN: {
     type: String,
     required: true,
-    match: /^[A-Za-z ]+$/,
+    match: /[\s\S]/,
     message: 'Это поле может содержать только латинские символы',
   },
 });
