@@ -28,7 +28,6 @@ const createMovie = (req, res, next) => {
 
 // удаление фильма
 const deleteMovie = (req, res, next) => {
-  // Movie.findOne({ movieId: req.params.movieId })
   Movie.findById(req.params.id)
     .then((movie) => {
       if (!movie) {
@@ -37,10 +36,9 @@ const deleteMovie = (req, res, next) => {
       if (movie.owner.toString() !== req.user._id.toString()) {
         throw new ForbiddenError('Вы не можете удалить эту карточку');
       }
-      // return Movie.deleteOne({ movieId: req.params._id })
-      return movie.deleteOne()
-        .then((ok) => {
-          res.status(noContentStatus).send({ message: 'Карточка удалена' });
+      return Movie.findByIdAndRemove(req.params.id)
+        .then((card) => {
+          res.status(200).send(card);
         });
     })
     .catch(next);
